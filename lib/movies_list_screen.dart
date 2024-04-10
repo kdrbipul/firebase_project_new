@@ -36,13 +36,13 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
         title: const Text('Movies'),
       ),
       body: ListView.separated(
-          itemCount: 10,
+          itemCount: movieList.length,
           itemBuilder: (context, index) {
-            return const ListTile(
-              title: Text('Moves'),
-              subtitle: Text('languages'),
-              leading: Text('1.4'),
-              trailing: Text('2020'),
+            return  ListTile(
+              title: Text(movieList[index].name),
+              subtitle: Text(movieList[index].languages),
+              leading: Text(movieList[index].rating),
+              trailing: Text(movieList[index].year),
             );
           },
           separatorBuilder: (_,__) => const Divider(),
@@ -53,12 +53,13 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
 
 
 class Movie{
-  final String id, name, languages, year;
+  final String id, name, languages, year, rating;
 
   Movie(
       {required this.id,
       required this.name,
       required this.languages,
+      required this.rating,
       required this.year});
 
   factory Movie.fromJson(String id, Map<String, dynamic> json){
@@ -66,6 +67,7 @@ class Movie{
         id: id,
         name: json['name'],
         languages: json['languages'],
+        rating: json['rating'] ?? 'Unknown',
         year: json['year']);
   }
 }
